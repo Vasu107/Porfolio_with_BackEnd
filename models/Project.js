@@ -19,6 +19,7 @@ const projectSchema = new mongoose.Schema(
     technologies: {
       type: [String],
       default: [],
+      required: true,
     },
 
     githubLink: {
