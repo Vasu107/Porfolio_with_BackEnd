@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 
 const router = express.Router()
 const JWT_SECRET = process.env.JWT_SECRET || 'replace-with-a-secret'
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'Vasudevyadav3107@gmail.com'
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'vasudevyadav3107@gmail.com'
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Vasudev@3107'
 
 router.post('/login', (req, res) => {
