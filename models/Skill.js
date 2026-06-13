@@ -9,6 +9,8 @@ const skillSchema = new mongoose.Schema(
     category: {
       type: String,
       enum: ["frontend", "backend", "database", "devops", "other"],
+      lowercase: true,
+      trim: true,
       default: "other",
     },
     proficiency: {
@@ -18,6 +20,7 @@ const skillSchema = new mongoose.Schema(
     },
     icon: {
       type: String,
+      required: true,
     },
   },
   { timestamps: true }

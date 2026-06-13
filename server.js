@@ -20,6 +20,7 @@ app.use("/api/skills", require("./routes/skillRoutes"));
 app.use("/api/certifications", require("./routes/certificationRoutes"));
 app.use("/api/education", require("./routes/educationRoutes"));
 app.use("/api/contact", require("./routes/contactRoutes"));
+app.use("/api/admin", require("./routes/adminRoutes"));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

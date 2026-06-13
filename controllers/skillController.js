@@ -19,9 +19,16 @@ const getSkill = async (req, res) => {
   }
 };
 
+const normalizeCategory = (value) => {
+  if (typeof value !== "string") return value;
+  return value.trim().toLowerCase();
+};
+
 const createSkill = async (req, res) => {
   try {
-    const skill = await Skill.create(req.body);
+    const data = { ...req.body };
+    if (data.category) data.category = normalizeCategory(data.category);
+    const skill = await Skill.create(data);
     res.status(201).json(skill);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -30,7 +37,9 @@ const createSkill = async (req, res) => {
 
 const updateSkill = async (req, res) => {
   try {
-    const skill = await Skill.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+    const data = { ...req.body };
+    if (data.category) data.category = normalizeCategory(data.category);
+    const skill = await Skill.findByIdAndUpdate(req.params.id, data, { new: true, runValidators: true });
     if (!skill) return res.status(404).json({ message: "Skill not found" });
     res.json(skill);
   } catch (err) {
