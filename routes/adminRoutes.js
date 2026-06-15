@@ -5,6 +5,7 @@ const router = express.Router()
 const JWT_SECRET = process.env.JWT_SECRET || 'replace-with-a-secret'
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'vasudevyadav3107@gmail.com'
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Vasudev@3107'
+const { protectAdmin } = require('../middleware/authMiddleware')
 
 router.post('/login', (req, res) => {
   const { email, password } = req.body
@@ -19,6 +20,11 @@ router.post('/login', (req, res) => {
 
   const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: '4h' })
   res.json({ token })
+})
+
+// Verify token validity — used by frontend to confirm authentication
+router.get('/verify', protectAdmin, (req, res) => {
+  res.json({ ok: true, admin: req.admin })
 })
 
 module.exports = router
