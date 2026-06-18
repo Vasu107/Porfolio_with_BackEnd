@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { getCertifications, getCertification, createCertification, updateCertification, deleteCertification } = require("../controllers/certificationController");
+const { getcertifications, getcertification, createcertification, updatecertification, deletecertification } = require("../controllers/certificationController");
 const { protectAdmin } = require("../middleware/authMiddleware");
 
-router.get("/", getCertifications);
-router.get("/:id", getCertification);
-router.post("/", protectAdmin, createCertification);
-router.put("/:id", protectAdmin, updateCertification);
-router.delete("/:id", protectAdmin, deleteCertification);
+router.get("/", getcertifications);
+router.get("/:id", getcertification);
+router.post("/", protectAdmin, createcertification);
+router.put("/:id", protectAdmin, updatecertification);
+router.delete("/:id", protectAdmin, deletecertification);
 
 module.exports = router;
