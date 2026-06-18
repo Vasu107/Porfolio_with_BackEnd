@@ -1,4 +1,4 @@
-const certification = require("../models/certification");
+const Certification = require("../models/Certification");
 
 // Helper function to parse DD-MM-YYYY date format to Date object
 const parseDate = (dateString) => {
@@ -17,60 +17,60 @@ const parseDate = (dateString) => {
   return isNaN(date.getTime()) ? null : date;
 };
 
-const getcertifications = async (req, res) => {
+const getCertifications = async (req, res) => {
   try {
-    const certifications = await certification.find().sort({ issueDate: -1 });
+    const certifications = await Certification.find().sort({ issueDate: -1 });
     res.json(certifications);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-const getcertification = async (req, res) => {
+const getCertification = async (req, res) => {
   try {
-    const certification = await certification.findById(req.params.id);
-    if (!certification) return res.status(404).json({ message: "certification not found" });
+    const certification = await Certification.findById(req.params.id);
+    if (!certification) return res.status(404).json({ message: "Certification not found" });
     res.json(certification);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-const createcertification = async (req, res) => {
+const createCertification = async (req, res) => {
   try {
     const data = { ...req.body };
     if (data.issueDate) data.issueDate = parseDate(data.issueDate);
     if (data.expiryDate) data.expiryDate = parseDate(data.expiryDate);
     
-    const certification = await certification.create(data);
+    const certification = await Certification.create(data);
     res.status(201).json(certification);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 };
 
-const updatecertification = async (req, res) => {
+const updateCertification = async (req, res) => {
   try {
     const data = { ...req.body };
     if (data.issueDate) data.issueDate = parseDate(data.issueDate);
     if (data.expiryDate) data.expiryDate = parseDate(data.expiryDate);
     
-    const certification = await certification.findByIdAndUpdate(req.params.id, data, { new: true, runValidators: true });
-    if (!certification) return res.status(404).json({ message: "certification not found" });
+    const certification = await Certification.findByIdAndUpdate(req.params.id, data, { new: true, runValidators: true });
+    if (!certification) return res.status(404).json({ message: "Certification not found" });
     res.json(certification);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 };
 
-const deletecertification = async (req, res) => {
+const deleteCertification = async (req, res) => {
   try {
-    const certification = await certification.findByIdAndDelete(req.params.id);
-    if (!certification) return res.status(404).json({ message: "certification not found" });
-    res.json({ message: "certification deleted" });
+    const certification = await Certification.findByIdAndDelete(req.params.id);
+    if (!certification) return res.status(404).json({ message: "Certification not found" });
+    res.json({ message: "Certification deleted" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-module.exports = { getcertifications, getcertification, createcertification, updatecertification, deletecertification };
+module.exports = { getCertifications, getCertification, createCertification, updateCertification, deleteCertification };
